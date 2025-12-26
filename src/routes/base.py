@@ -1,11 +1,12 @@
 from fastapi import APIRouter
-import os
+from helpers.config import get_settings
 
 base_router = APIRouter(prefix="/api/v1", tags=["api_v1"])
 
 
 @base_router.get("/")
 async def welcome():
-    app_name = os.getenv("APP_NAME")
-    app_version = os.getenv("APP_VERSION")
-    return {"message": f"Welcome to the {app_name} API! {app_version}"}
+    app_settings = get_settings()
+    return {
+        "message": f"Welcome to the {app_settings.APP_NAME} API! {app_settings.APP_VERSION}"
+    }
