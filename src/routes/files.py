@@ -21,7 +21,7 @@ async def upload_file(
         )
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
     file_path = project_dir_path / file.filename
-    async with aiofiles.open(file_path, "wb") as f:  # type: ignore[unresolved-reference]
+    async with aiofiles.open(file_path, "wb") as f:
         while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
             await f.write(chunk)
 
