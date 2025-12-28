@@ -38,7 +38,7 @@ async def upload_file(
 
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            content={"signal": ResoponseSignal.FILE_UPLOAD_FAILED},
+            content={"signal": ResoponseSignal.FILE_UPLOAD_FAILED.value},
         )
 
-    return JSONResponse(content={"signal": ResoponseSignal.FILE_UPLOAD_SUCCESS})
+    return JSONResponse(content={"signal": ResoponseSignal.FILE_UPLOAD_SUCCESS.value})
