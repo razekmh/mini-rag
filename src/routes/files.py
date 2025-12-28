@@ -13,7 +13,7 @@ async def upload_file(
     project_id: str,
     file: UploadFile,
     app_settings: Settings = Depends(get_settings),
-) -> dict:
+) -> JSONResponse:
     is_valid, result_signal = FileController().validate_uploaded_file(file=file)
     if not is_valid:
         return JSONResponse(
@@ -25,4 +25,4 @@ async def upload_file(
         while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
             await f.write(chunk)
 
-    return {"signal": result_signal}
+    return JSONResponse(content={"signal": result_signal})
