@@ -18,5 +18,9 @@ async def upload_file(
             status_code=status.HTTP_400_BAD_REQUEST, content={"signal": result_signal}
         )
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
+    file_path = project_dir_path / file.filename
+    async with aiofiles.open(file_path, "wb") as f:  # type: ignore[unresolved-reference]
+        while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
+            await f.write(chunk)
 
     return {"signal": result_signal}
