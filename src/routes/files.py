@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, Depends, status
 from fastapi.responses import JSONResponse
 from helpers.config import get_settings, Settings
-from controllers import FileController
+from controllers import FileController, ProjectController
 
 file_router = APIRouter(prefix="/api/v1/files", tags=["api_v1", "files"])
 
@@ -17,4 +17,6 @@ async def upload_file(
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST, content={"signal": result_signal}
         )
+    project_dir_path = ProjectController().get_project_path(project_id=project_id)
+
     return {"signal": result_signal}
