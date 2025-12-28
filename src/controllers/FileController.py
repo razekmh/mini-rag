@@ -7,9 +7,9 @@ class FileController(BaseController):
         super().__init__()
         self.size_scale = 1048576
 
-    def validate_uploaded_file(self, file: UploadFile) -> bool:
+    def validate_uploaded_file(self, file: UploadFile) -> tuple[bool, str]:
         if file.content_type not in self.app_settings.FILE_ALLOWED_TYPES:
-            return False
+            return False, "file_type_not_supported"
         if file.size > self.app_settings.FILE_MAX_SIZE * self.size_scale:
-            return False
-        return True
+            return False, "file_size_exceeded_maximum"
+        return True, "success"

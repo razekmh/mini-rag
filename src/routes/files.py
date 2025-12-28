@@ -10,6 +10,6 @@ async def upload_file(
     project_id: str,
     file: UploadFile,
     app_settings: Settings = Depends(get_settings),
-) -> bool:
-    is_valid = FileController().validate_uploaded_file(file=file)
-    return is_valid
+) -> dict:
+    is_valid, result_signal = FileController().validate_uploaded_file(file=file)
+    return {"signal": result_signal}
